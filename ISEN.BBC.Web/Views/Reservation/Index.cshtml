@@ -1,0 +1,48 @@
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model System.Collections.Generic.IEnumerable<Reservation>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<h2>Reservations en cours</h2>
+
+<p>
+    <a asp-action="Detail">Nouvelle reservation</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Voyageur
+            </th>
+            <th>
+                Conducteur
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voyage.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                <a asp-controller="Reservation" asp-action="Detail" asp-route-id="@item.Id">Detailler</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

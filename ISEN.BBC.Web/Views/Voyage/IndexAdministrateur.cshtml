@@ -1,0 +1,159 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model IEnumerable<Voyage>
+
+@{
+    ViewData["Title"] = "Voyages en cours";
+}
+
+<h2>Voyages</h2>
+
+@using (Html.BeginForm("FilterVoyage", "Voyage", FormMethod.Get))
+{
+    <br />
+    <p>
+        Départ: @Html.TextBox("SearchDepart", ViewBag.CurrentDepart as string)
+        Destination: @Html.TextBox("SearchDestination", ViewBag.CurrentDestination as string)
+        DateMin: @Html.TextBox("SearchDateMin", ViewBag.CurrentDateMin as string)
+        DateMax: @Html.TextBox("SearchDateMax", ViewBag.CurrentDateMax as string)
+        Archive: @Html.CheckBox("SearchArchive", ViewBag.CurrentArchive as bool?)
+        <br />
+        <br />
+        <input type="submit" value="Chercher un trajet" />
+    </p>
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Conducteur
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            Horaire
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Depart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Places)
+        </th>
+        <th>
+            Archive ?
+        </th>
+        <th>
+            Réservation
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        var i = 0;
+        foreach (var item in Model)
+        {
+            <tr>
+                @if (i % 2 == 0)
+                {
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    DateTime d = DateTime.Now;
+                    if (item.Date < d)
+                    {
+                        <td style="background-color: burlywood; color: red">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td style="background-color: burlywood; color: red">@Html.DisplayFor(modelItem => item.Date.TimeOfDay)</td>
+                    }
+                    else
+                    {
+                        <td style="background-color: burlywood">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td style="background-color: burlywood">@Html.DisplayFor(modelItem => item.Date.TimeOfDay)</td>
+                    }
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.Depart)
+                    </td>
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.Places)
+                    </td>
+                    <td style="background-color: burlywood">
+                        @Html.DisplayFor(modelItem => item.IsArchived)
+                    </td>
+                    <td style="background-color: burlywood">
+                        <ul>
+                            @foreach (var reservation in item.ReservationCollection)
+                            {
+                                <li>@reservation.Name</li>
+                            }
+                        </ul>
+                    </td>
+                    <td style="background-color: burlywood">
+                        <a asp-controller="Voyage" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                        <a asp-controller="Voyage" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </td>
+                }
+                else
+                {
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    DateTime d = DateTime.Now;
+                    if (item.Date < d)
+                    {
+                        <td style="background-color: honeydew; color: red">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td style="background-color: honeydew; color: red">@Html.DisplayFor(modelItem => item.Date.TimeOfDay)</td>
+                    }
+                    else
+                    {
+                        <td style="background-color: honeydew">@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td style="background-color: honeydew">@Html.DisplayFor(modelItem => item.Date.TimeOfDay)</td>
+                    }
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.Depart)
+                    </td>
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.Places)
+                    </td>
+                    <td style="background-color: honeydew">
+                        @Html.DisplayFor(modelItem => item.IsArchived)
+                    </td>
+                    <td style="background-color: honeydew">
+                        <ul>
+                            @foreach (var reservation in item.ReservationCollection)
+                            {
+                                <li>@reservation.Name</li>
+                            }
+                        </ul>
+                    </td>
+                    <td style="background-color: honeydew">
+                        <a asp-controller="Voyage" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                        <a asp-controller="Voyage" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </td>
+                }
+            </tr>
+            i++;
+        }
+    }
+    </tbody>
+</table>

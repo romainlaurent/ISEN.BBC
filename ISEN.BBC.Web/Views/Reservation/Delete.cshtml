@@ -1,0 +1,60 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model Reservation
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Voyage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voyage.Depart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voyage.Depart)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voyage.Destination)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voyage.Destination)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voyage.Comment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voyage.Comment)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voyage.Places)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voyage.Places)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voyage.IsArchived)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voyage.IsArchived)
+        </dd>
+        <input type="hidden" asp-for="VoyageId" />
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

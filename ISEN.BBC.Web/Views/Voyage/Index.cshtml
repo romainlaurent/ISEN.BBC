@@ -1,0 +1,117 @@
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model IEnumerable<Voyage>
+
+@{
+    ViewData["Title"] = "Voyages en cours";
+}
+
+<h2>Voyages</h2>
+
+@using (Html.BeginForm("FilterVoyage", "Voyage", FormMethod.Get))
+{
+    <br />
+    <p>
+        Depart: @Html.TextBox("SearchDepart", ViewBag.CurrentDepart as string)
+        Destination: @Html.TextBox("SearchDestination", ViewBag.CurrentDestination as string)
+        DateMin: @Html.TextBox("SearchDateMin")
+        DateMax: @Html.TextBox("SearchDateMax")
+        <br/>
+        <br/>
+        <input type="submit" value="Chercher un trajet"/>
+    </p>
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            Horaire
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Depart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th>
+            Places Restantes
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @{var i = 0;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        @if (i % 2 == 0)
+                        {
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Date.TimeOfDay)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Depart)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Destination)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Comment)
+                            </td>
+                            <td style="background-color:lightblue">
+                                @Html.DisplayFor(modelItem => item.Places)
+                            </td>
+                            <td style="background-color:lightblue">
+                                <a asp-controller="Reservation" asp-action="DetailWithVoyageId" asp-route-id="@item.Id">Reserver</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Date.TimeOfDay)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Depart)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Destination)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                @Html.DisplayFor(modelItem => item.Comment)
+                            </td>
+                            <td style="background-color: lightcyan">
+                                @Html.DisplayFor(modelItem => item.NbPlaces)
+                            </td>
+                            <td style="background-color:lightcyan">
+                                <a asp-controller="Reservation" asp-action="DetailWithVoyageId" asp-route-id="@item.Id">Reserver</a>
+                            </td>
+                        }
+                    </tr>
+                    i++;
+                }
+    }
+    </tbody>
+</table>

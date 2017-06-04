@@ -1,0 +1,80 @@
+@model Voyage
+
+@{
+    ViewData["Title"] = "Proposer un trajet";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>
+            Detail du trajet
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" asp-action="Detail">
+            <input type="hidden" asp-for="Id" value="@Model?.Id"/>
+            <div>
+                <label asp-for="Name" class="control-label">Nom</label>
+                <input class="form-control"
+                       id="Name" placeholder="Name"
+                       asp-for="Name"
+                       value="@Model?.Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Date" class="control-label">Date</label>
+                <input class="form-control"
+                       id="Date" placeholder="Date"
+                       asp-for="Date"
+                       value="@Model?.Date"/>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Depart" class="control-label">Depart</label>
+                <input class="form-control"
+                       id="Depart" placeholder="Depart"
+                       asp-for="Depart"
+                       value="@Model?.Depart"/>
+                <span asp-validation-for="Depart" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Destination" class="control-label">Destination</label>
+                <input class="form-control"
+                       id="Destination" placeholder="Destination"
+                       asp-for="Destination"
+                       value="@Model?.Destination"/>
+                <span asp-validation-for="Destination" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Comment" class="control-label">Commentaire</label>
+                <input class="form-control"
+                       id="Comment" placeholder="Commentaire"
+                       asp-for="Comment"
+                       value="@Model?.Comment"/>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Places" class="control-label">Places</label>
+                <input class="form-control"
+                       id="Places" placeholder="Places"
+                       asp-for="Places"
+                       value="@Model?.Places"/>
+                <span asp-validation-for="Places" class="text-danger"></span>
+            </div>
+@*            <div>*@
+@*                <label asp-for="IsArchived" class="control-label">Archive ?</label>*@
+@*                <div class="checkbox">*@
+@*                    <label>    </label>*@
+@*                    <input asp-for="IsArchived" />*@
+@*                </div>*@
+@*            </div>*@
+            <hr/>
+            <input type="submit" class="btn btn-primary" value="Sauvegarder"/>
+            <a asp-controller="Voyage" asp-action="IndexAdministrateur" class="btn btn-default">Annuler</a>
+
+        </form>
+    </div>
+</div>
